@@ -4,7 +4,6 @@ import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken";
-import { compareSync } from "bcrypt";
 
 
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -184,7 +183,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
 
-    const incomingRefreshToken = req.cookie.refreshToken || req.body.refreshToken;
+    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
     if(!incomingRefreshToken) {
         throw new ApiError(410, "unauthorized request")
